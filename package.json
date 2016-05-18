@@ -1,0 +1,39 @@
+{
+  "name": "react-element-resize",
+  "version": "0.0.0",
+  "description": "Element resize sensor with optional debounce",
+  "main": "lib/index.js",
+  "config": {
+    "component": "ReactElementResize"
+  },
+  "scripts": {
+    "start": "p-s --config node_modules/react-component-template/package-scripts.js -s",
+    "test": "npm start test",
+    "precommit": "npm start precommit",
+    "prepush": "npm start prepush",
+    "postversion": "npm start postversion",
+    "prepublish": "npm start prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nkbt/react-element-resize.git"
+  },
+  "keywords": [
+    "component",
+    "react-component",
+    "react"
+  ],
+  "author": "Nik Butenko <nik@butenko.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nkbt/react-element-resize/issues"
+  },
+  "homepage": "https://github.com/nkbt/react-element-resize",
+  "peerDependencies": {
+    "react": "^0.14 || ^15"
+  },
+  "devDependencies": {
+    "p-s": "0.7.1",
+    "react-component-template": "0.1.1"
+  }
+}

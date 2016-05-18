@@ -1,0 +1,1 @@
+export {ReactElementResize} from './Component';
