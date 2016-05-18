@@ -8,7 +8,7 @@
 [![Dependencies](https://img.shields.io/david/nkbt/react-element-resize.svg?style=flat-square)](https://david-dm.org/nkbt/react-element-resize)
 [![Dev Dependencies](https://img.shields.io/david/dev/nkbt/react-element-resize.svg?style=flat-square)](https://david-dm.org/nkbt/react-element-resize#info=devDependencies)
 
-React component-wrapper to swap one element with another and back, useful to show/hide popups, expand/collapse elements, various toggles, etc.
+Element resize sensor with optional debounce
 
 ## Installation
 
@@ -31,7 +31,7 @@ or in `bower.json`
 ```json
 {
   "dependencies": {
-    "react-motion": "https://npmcdn.com/react-element-resize/bower.zip"
+    "react-element-resize": "https://npmcdn.com/react-element-resize/bower.zip"
   }
 }
 ```
@@ -68,9 +68,11 @@ import ReactDOM from 'react-dom';
 import {ReactElementResize} from 'react-element-resize';
 
 const App = () => (
-  <div>
-    <ReactElementResize />
-  </div>
+  <ReactElementResize
+    debounceTimeout={200}
+    onResize={({width, height}) => console.log({width, height})}>
+    {({width, height}) => <pre >{JSON.stringify({width, height}, null, 2)}</pre>}
+  </ReactElementResize>
 );
 
 const appRoot = document.createElement('div');
