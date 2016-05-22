@@ -2,7 +2,12 @@
   "name": "react-element-resize",
   "version": "0.0.0",
   "description": "Element resize sensor with optional debounce",
-  "main": "lib/index.js",
+  "main": [
+    "build/react-element-resize.js",
+    "build/react-element-resize.js.map",
+    "build/react-element-resize.min.js",
+    "build/react-element-resize.min.js.map"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/nkbt/react-element-resize.git"

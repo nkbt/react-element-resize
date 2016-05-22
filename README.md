@@ -13,7 +13,6 @@ Element resize sensor with optional debounce
 ## Installation
 
 ### NPM
-
 ```sh
 npm install --save react react-element-resize
 ```
@@ -23,23 +22,7 @@ Don't forget to manually install peer dependencies (`react`) if you use npm@3.
 
 ### Bower:
 ```sh
-bower install --save https://npmcdn.com/react-element-resize/build/react-element-resize.js
-```
-
-or in `bower.json`
-
-```json
-{
-  "dependencies": {
-    "react-element-resize": "https://npmcdn.com/react-element-resize/bower.zip"
-  }
-}
-```
-
-then include as
-```html
-<script src="bower_components/react/react.js"></script>
-<script src="bower_components/react-element-resize/build/react-element-resize.js"></script>
+bower install --save https://npmcdn.com/react-element-resize/bower.zip
 ```
 
 
