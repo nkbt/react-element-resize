@@ -19,10 +19,21 @@ const App = React.createClass({
     return (
       <div className={css.app}>
         <h1>react-element-resize</h1>
+
+        <h2>Debounce scrolling and resize by 200ms</h2>
         <ReactElementResize
           className={css.wrapper}
           debounceTimeout={200}
           onResize={this.onLog}
+          onScroll={this.onLog}>
+          {data => <pre className={css.pre}>{JSON.stringify(data, null, 2)}</pre>}
+        </ReactElementResize>
+
+        <h2>Debounce scrolling by 200ms but no more then 1000ms</h2>
+        <ReactElementResize
+          className={css.wrapper}
+          debounceTimeout={200}
+          debounceOptions={{maxWait: 1000}}
           onScroll={this.onLog}>
           {data => <pre className={css.pre}>{JSON.stringify(data, null, 2)}</pre>}
         </ReactElementResize>
