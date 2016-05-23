@@ -20,9 +20,10 @@ const iframeStyle = {
 export const ReactElementResize = React.createClass({
   propTypes: {
     onResize: React.PropTypes.func,
+    onScroll: React.PropTypes.func,
     debounceTimeout: React.PropTypes.number,
-    children: React.PropTypes.func,
-    style: React.PropTypes.object
+    style: React.PropTypes.object,
+    children: React.PropTypes.func
   },
 
 
@@ -30,35 +31,69 @@ export const ReactElementResize = React.createClass({
     return {
       style: {},
       debounceTimeout: -1,
-      onResize: () => {},
       children: () => null
     };
   },
 
 
   getInitialState() {
-    return {width: -1, height: -1};
+    return {
+      width: -1,
+      height: -1,
+      offsetLeft: -1,
+      offsetTop: -1,
+      scrollLeft: -1,
+      scrollTop: -1
+    };
   },
 
 
   componentWillMount() {
-    const {debounceTimeout} = this.props;
-    this.onResizeDebounced = debounceTimeout > -1 ?
-      debounce(this.onResize, debounceTimeout) :
-      this.onResize;
+    const {debounceTimeout, onResize, onScroll} = this.props;
+
+    if (onResize) {
+      this.onResizeDebounced = debounceTimeout > -1 ?
+        debounce(this.onResize, debounceTimeout) :
+        this.onResize;
+    }
+
+    if (onScroll) {
+      this.onScrollDebounced = debounceTimeout > -1 ?
+        debounce(this.onScroll, debounceTimeout) :
+        this.onScroll;
+    }
   },
 
 
   componentDidMount() {
-    this.sensor.contentWindow.addEventListener('resize', this.onResizeDebounced, false);
-    this.raf = requestAnimationFrame(this.onResize);
+    const {onResize, onScroll} = this.props;
+
+    if (onResize) {
+      this.sensor.contentWindow.addEventListener('resize', this.onResizeDebounced, false);
+      this.rafOnResize = requestAnimationFrame(this.onResize);
+    }
+
+    if (onScroll) {
+      this.container.addEventListener('scroll', this.onScrollDebounced, false);
+      this.rafOnScroll = requestAnimationFrame(this.onScroll);
+    }
   },
 
 
   componentWillUnmount() {
-    this.onResizeDebounced.cancel();
-    this.sensor.contentWindow.removeEventListener('resize', this.onResizeDebounced, false);
-    cancelAnimationFrame(this.raf);
+    const {onResize, onScroll} = this.props;
+
+    if (onResize) {
+      cancelAnimationFrame(this.rafOnResize);
+      this.sensor.contentWindow.removeEventListener('resize', this.onResizeDebounced, false);
+      this.onResizeDebounced.cancel();
+    }
+
+    if (onScroll) {
+      cancelAnimationFrame(this.rafOnScroll);
+      this.container.removeEventListener('scroll', this.onScrollDebounced, false);
+      this.onScrollDebounced.cancel();
+    }
   },
 
 
@@ -69,25 +104,44 @@ export const ReactElementResize = React.createClass({
     this.setState({width, height});
   },
 
-  onRef(ref) {
+
+  onScroll() {
+    const {offsetLeft, offsetTop, scrollLeft, scrollTop} = this.container;
+    const {onScroll} = this.props;
+    onScroll({offsetLeft, offsetTop, scrollLeft, scrollTop});
+    this.setState({offsetLeft, offsetTop, scrollLeft, scrollTop});
+  },
+
+
+  onContainerRef(ref) {
+    this.container = ref;
+  },
+
+
+  onSensorRef(ref) {
     this.sensor = ref;
   },
 
 
   render() {
     const {
+      onResize,
+      onScroll,
+      debounceTimeout: _debounceTimeout,
       style,
       children: render,
-      onResize: _onResize,
-      debounceTimeout: _debounceTimeout,
       ...props
     } = this.props;
-    const {width, height} = this.state;
+    const {width, height, offsetLeft, offsetTop, scrollLeft, scrollTop} = this.state;
+    const shouldRender = onResize && width > -1 && height > -1 ||
+      onScroll && offsetLeft > -1 && offsetTop > -1 && scrollLeft > -1 && scrollTop > -1;
 
     return (
-      <div style={{position: 'relative', ...style}} {...props}>
-        <iframe ref={this.onRef} style={iframeStyle} />
-        {width > -1 && height > -1 ? render({width, height}) : null}
+      <div ref={this.onContainerRef} style={{position: 'relative', ...style}} {...props}>
+        {onResize ?
+          <iframe ref={this.onSensorRef} style={iframeStyle} /> : null}
+        {shouldRender ?
+          render({width, height, offsetLeft, offsetTop, scrollLeft, scrollTop}) : null}
       </div>
     );
   }
