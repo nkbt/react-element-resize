@@ -22,6 +22,11 @@ export const ReactElementResize = React.createClass({
     onResize: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     debounceTimeout: React.PropTypes.number,
+    debounceOptions: React.PropTypes.shape({
+      leading: React.PropTypes.bool,
+      trailing: React.PropTypes.bool,
+      maxWait: React.PropTypes.number
+    }),
     style: React.PropTypes.object,
     children: React.PropTypes.func
   },
@@ -49,17 +54,17 @@ export const ReactElementResize = React.createClass({
 
 
   componentWillMount() {
-    const {debounceTimeout, onResize, onScroll} = this.props;
+    const {debounceTimeout, debounceOptions, onResize, onScroll} = this.props;
 
     if (onResize) {
       this.onResizeDebounced = debounceTimeout > -1 ?
-        debounce(this.onResize, debounceTimeout) :
+        debounce(this.onResize, debounceTimeout, debounceOptions) :
         this.onResize;
     }
 
     if (onScroll) {
       this.onScrollDebounced = debounceTimeout > -1 ?
-        debounce(this.onScroll, debounceTimeout) :
+        debounce(this.onScroll, debounceTimeout, debounceOptions) :
         this.onScroll;
     }
   },
@@ -128,6 +133,7 @@ export const ReactElementResize = React.createClass({
       onResize,
       onScroll,
       debounceTimeout: _debounceTimeout,
+      debounceOptions: _debounceOptions,
       style,
       children: render,
       ...props
