@@ -45,16 +45,23 @@ bower install --save https://npmcdn.com/react-element-resize/bower.zip
 ```
 
 ## Usage
-```js
+```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ReactElementResize} from 'react-element-resize';
 
+
+const onResize = {({width, height}) =>
+  console.log({width, height})}
+
+
+const onScroll = ({offsetLeft, offsetTop, scrollLeft, scrollTop}) =>
+  console.log({offsetLeft, offsetTop, scrollLeft, scrollTop})}
+
+
 const App = () => (
-  <ReactElementResize
-    debounceTimeout={200}
-    onResize={({width, height}) => console.log({width, height})}>
-    {({width, height}) => <pre >{JSON.stringify({width, height}, null, 2)}</pre>}
+  <ReactElementResize debounceTimeout={200} onResize={onResize} onScroll={onScroll}>
+    {data => <pre>{JSON.stringify(data, null, 2)}</pre>}
   </ReactElementResize>
 );
 
