@@ -19410,36 +19410,54 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var App = function App() {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: _App2.default.app },
-	    _react2.default.createElement(
-	      'h1',
-	      null,
-	      'react-element-resize'
-	    ),
-	    _react2.default.createElement(
-	      _.ReactElementResize,
-	      {
-	        debounceTimeout: 200,
-	        onResize: function onResize(_ref) {
-	          var width = _ref.width;
-	          var height = _ref.height;
-	          return console.log({ width: width, height: height });
-	        } },
-	      function (_ref2) {
-	        var width = _ref2.width;
-	        var height = _ref2.height;
-	        return _react2.default.createElement(
-	          'pre',
-	          { className: _App2.default.pre },
-	          JSON.stringify({ width: width, height: height }, null, 2)
-	        );
-	      }
-	    )
-	  );
-	};
+	var App = _react2.default.createClass({
+	  displayName: 'App',
+	  getInitialState: function getInitialState() {
+	    return { log: [] };
+	  },
+	  onLog: function onLog(data) {
+	    this.setState({ log: [JSON.stringify(data)].concat(this.state.log).slice(0, 20) });
+	  },
+	  render: function render() {
+	    var log = this.state.log;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: _App2.default.app },
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'react-element-resize'
+	      ),
+	      _react2.default.createElement(
+	        _.ReactElementResize,
+	        {
+	          className: _App2.default.wrapper,
+	          debounceTimeout: 200,
+	          onResize: this.onLog,
+	          onScroll: this.onLog },
+	        function (data) {
+	          return _react2.default.createElement(
+	            'pre',
+	            { className: _App2.default.pre },
+	            JSON.stringify(data, null, 2)
+	          );
+	        }
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: _App2.default.log },
+	        log.map(function (line, i) {
+	          return _react2.default.createElement(
+	            'pre',
+	            { className: _App2.default.line, key: i + '/' + line },
+	            line
+	          );
+	        })
+	      )
+	    );
+	  }
+	});
 	
 	exports.default = App;
 
@@ -19506,37 +19524,79 @@
 	
 	  propTypes: {
 	    onResize: _react2.default.PropTypes.func,
+	    onScroll: _react2.default.PropTypes.func,
 	    debounceTimeout: _react2.default.PropTypes.number,
-	    children: _react2.default.PropTypes.func,
-	    style: _react2.default.PropTypes.object
+	    style: _react2.default.PropTypes.object,
+	    children: _react2.default.PropTypes.func
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      style: {},
 	      debounceTimeout: -1,
-	      onResize: function onResize() {},
 	      children: function children() {
 	        return null;
 	      }
 	    };
 	  },
 	  getInitialState: function getInitialState() {
-	    return { width: -1, height: -1 };
+	    return {
+	      width: -1,
+	      height: -1,
+	      offsetLeft: -1,
+	      offsetTop: -1,
+	      scrollLeft: -1,
+	      scrollTop: -1
+	    };
 	  },
 	  componentWillMount: function componentWillMount() {
-	    var debounceTimeout = this.props.debounceTimeout;
+	    var _props = this.props;
+	    var debounceTimeout = _props.debounceTimeout;
+	    var onResize = _props.onResize;
+	    var onScroll = _props.onScroll;
 	
-	    this.onResizeDebounced = debounceTimeout > -1 ? (0, _lodash2.default)(this.onResize, debounceTimeout) : this.onResize;
+	
+	    if (onResize) {
+	      this.onResizeDebounced = debounceTimeout > -1 ? (0, _lodash2.default)(this.onResize, debounceTimeout) : this.onResize;
+	    }
+	
+	    if (onScroll) {
+	      this.onScrollDebounced = debounceTimeout > -1 ? (0, _lodash2.default)(this.onScroll, debounceTimeout) : this.onScroll;
+	    }
 	  },
 	  componentDidMount: function componentDidMount() {
-	    this.sensor.contentWindow.addEventListener('resize', this.onResizeDebounced, false);
-	    this.raf = requestAnimationFrame(this.onResize);
+	    var _props2 = this.props;
+	    var onResize = _props2.onResize;
+	    var onScroll = _props2.onScroll;
+	
+	
+	    if (onResize) {
+	      this.sensor.contentWindow.addEventListener('resize', this.onResizeDebounced, false);
+	      this.rafOnResize = requestAnimationFrame(this.onResize);
+	    }
+	
+	    if (onScroll) {
+	      this.container.addEventListener('scroll', this.onScrollDebounced, false);
+	      this.rafOnScroll = requestAnimationFrame(this.onScroll);
+	    }
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    this.onResizeDebounced.cancel();
-	    this.sensor.contentWindow.removeEventListener('resize', this.onResizeDebounced, false);
-	    cancelAnimationFrame(this.raf);
+	    var _props3 = this.props;
+	    var onResize = _props3.onResize;
+	    var onScroll = _props3.onScroll;
+	
+	
+	    if (onResize) {
+	      cancelAnimationFrame(this.rafOnResize);
+	      this.sensor.contentWindow.removeEventListener('resize', this.onResizeDebounced, false);
+	      this.onResizeDebounced.cancel();
+	    }
+	
+	    if (onScroll) {
+	      cancelAnimationFrame(this.rafOnScroll);
+	      this.container.removeEventListener('scroll', this.onScrollDebounced, false);
+	      this.onScrollDebounced.cancel();
+	    }
 	  },
 	  onResize: function onResize() {
 	    var _sensor$contentWindow = this.sensor.contentWindow;
@@ -19547,28 +19607,48 @@
 	    onResize({ width: width, height: height });
 	    this.setState({ width: width, height: height });
 	  },
-	  onRef: function onRef(ref) {
+	  onScroll: function onScroll() {
+	    var _container = this.container;
+	    var offsetLeft = _container.offsetLeft;
+	    var offsetTop = _container.offsetTop;
+	    var scrollLeft = _container.scrollLeft;
+	    var scrollTop = _container.scrollTop;
+	    var onScroll = this.props.onScroll;
+	
+	    onScroll({ offsetLeft: offsetLeft, offsetTop: offsetTop, scrollLeft: scrollLeft, scrollTop: scrollTop });
+	    this.setState({ offsetLeft: offsetLeft, offsetTop: offsetTop, scrollLeft: scrollLeft, scrollTop: scrollTop });
+	  },
+	  onContainerRef: function onContainerRef(ref) {
+	    this.container = ref;
+	  },
+	  onSensorRef: function onSensorRef(ref) {
 	    this.sensor = ref;
 	  },
 	  render: function render() {
-	    var _props = this.props;
-	    var style = _props.style;
-	    var render = _props.children;
-	    var _onResize = _props.onResize;
-	    var _debounceTimeout = _props.debounceTimeout;
+	    var _props4 = this.props;
+	    var onResize = _props4.onResize;
+	    var onScroll = _props4.onScroll;
+	    var _debounceTimeout = _props4.debounceTimeout;
+	    var style = _props4.style;
+	    var render = _props4.children;
 	
-	    var props = _objectWithoutProperties(_props, ['style', 'children', 'onResize', 'debounceTimeout']);
+	    var props = _objectWithoutProperties(_props4, ['onResize', 'onScroll', 'debounceTimeout', 'style', 'children']);
 	
 	    var _state = this.state;
 	    var width = _state.width;
 	    var height = _state.height;
+	    var offsetLeft = _state.offsetLeft;
+	    var offsetTop = _state.offsetTop;
+	    var scrollLeft = _state.scrollLeft;
+	    var scrollTop = _state.scrollTop;
 	
+	    var shouldRender = onResize && width > -1 && height > -1 || onScroll && offsetLeft > -1 && offsetTop > -1 && scrollLeft > -1 && scrollTop > -1;
 	
 	    return _react2.default.createElement(
 	      'div',
-	      _extends({ style: _extends({ position: 'relative' }, style) }, props),
-	      _react2.default.createElement('iframe', { ref: this.onRef, style: iframeStyle }),
-	      width > -1 && height > -1 ? render({ width: width, height: height }) : null
+	      _extends({ ref: this.onContainerRef, style: _extends({ position: 'relative' }, style) }, props),
+	      onResize ? _react2.default.createElement('iframe', { ref: this.onSensorRef, style: iframeStyle }) : null,
+	      shouldRender ? render({ width: width, height: height, offsetLeft: offsetLeft, offsetTop: offsetTop, scrollLeft: scrollLeft, scrollTop: scrollTop }) : null
 	    );
 	  }
 	});
@@ -20008,12 +20088,15 @@
 	
 	
 	// module
-	exports.push([module.id, ".src-example-App-App---app {\n  padding: 2em;\n}\n\n.src-example-App-App---pre {\n  background: #f1f2f3;\n  padding: 20px;\n}\n", "", {"version":3,"sources":["/./src/example/App/App.css"],"names":[],"mappings":"AAAA;EACE,aAAa;CACd;;AAED;EACE,oBAAoB;EACpB,cAAc;CACf","file":"App.css","sourcesContent":[".app {\n  padding: 2em;\n}\n\n.pre {\n  background: #f1f2f3;\n  padding: 20px;\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".src-example-App-App---app {\n  padding: 2em;\n}\n\n.src-example-App-App---wrapper {\n  overflow: auto;\n  height: 200px;\n  background: #f1f2f3;\n  background: rgba(0, 0, 0, 0.1);\n}\n\n.src-example-App-App---pre {\n  margin: 50px;\n  padding: 20px;\n  background: rgba(255, 255, 255, 0.9);\n}\n\n.src-example-App-App---log {\n  margin-top: 20px;\n  padding: 20px;\n  background: rgba(220, 220, 255, 0.2);\n}\n\n.src-example-App-App---line {\n  margin: 0;\n  padding: 0;\n}\n", "", {"version":3,"sources":["/./src/example/App/App.css"],"names":[],"mappings":"AAAA;EACE,aAAa;CACd;;AAED;EACE,eAAe;EACf,cAAc;EACd,oBAAoB;EACpB,+BAA+B;CAChC;;AAED;EACE,aAAa;EACb,cAAc;EACd,qCAAqC;CACtC;;AAED;EACE,iBAAiB;EACjB,cAAc;EACd,qCAAqC;CACtC;;AAED;EACE,UAAU;EACV,WAAW;CACZ","file":"App.css","sourcesContent":[".app {\n  padding: 2em;\n}\n\n.wrapper {\n  overflow: auto;\n  height: 200px;\n  background: #f1f2f3;\n  background: rgba(0, 0, 0, 0.1);\n}\n\n.pre {\n  margin: 50px;\n  padding: 20px;\n  background: rgba(255, 255, 255, 0.9);\n}\n\n.log {\n  margin-top: 20px;\n  padding: 20px;\n  background: rgba(220, 220, 255, 0.2);\n}\n\n.line {\n  margin: 0;\n  padding: 0;\n}\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
 		"app": "src-example-App-App---app",
-		"pre": "src-example-App-App---pre"
+		"wrapper": "src-example-App-App---wrapper",
+		"pre": "src-example-App-App---pre",
+		"log": "src-example-App-App---log",
+		"line": "src-example-App-App---line"
 	};
 
 /***/ },
