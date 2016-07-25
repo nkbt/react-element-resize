@@ -37,6 +37,6 @@
     "react-component-template": "0.1.2"
   },
   "dependencies": {
-    "lodash.debounce": "4.0.6"
+    "lodash.debounce": "4.0.7"
   }
 }
