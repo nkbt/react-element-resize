@@ -8,7 +8,7 @@
 [![Dependencies](https://img.shields.io/david/nkbt/react-element-resize.svg?style=flat-square)](https://david-dm.org/nkbt/react-element-resize)
 [![Dev Dependencies](https://img.shields.io/david/dev/nkbt/react-element-resize.svg?style=flat-square)](https://david-dm.org/nkbt/react-element-resize#info=devDependencies)
 
-Element resize sensor with optional debounce
+React component-wrapper to swap one element with another and back, useful to show/hide popups, expand/collapse elements, various toggles, etc.
 
 ## Installation
 
@@ -45,7 +45,7 @@ bower install --save https://npmcdn.com/react-element-resize/bower.zip
 ```
 
 ## Usage
-```jsx
+```js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ReactElementResize} from 'react-element-resize';
