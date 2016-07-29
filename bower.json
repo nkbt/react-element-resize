@@ -15,7 +15,13 @@
   "keywords": [
     "component",
     "react-component",
-    "react"
+    "react",
+    "resize",
+    "resize sensor",
+    "measure",
+    "height",
+    "width",
+    "scroll"
   ],
   "authors": [
     "Nik Butenko <nik@butenko.me>"
