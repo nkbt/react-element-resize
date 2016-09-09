@@ -91,13 +91,17 @@ export const ReactElementResize = React.createClass({
     if (onResize) {
       cancelAnimationFrame(this.rafOnResize);
       this.sensor.contentWindow.removeEventListener('resize', this.onResizeDebounced, false);
-      this.onResizeDebounced.cancel();
+      if (this.onResizeDebounced.cancel) {
+       this.onResizeDebounced.cancel();
+      }
     }
 
     if (onScroll) {
       cancelAnimationFrame(this.rafOnScroll);
       this.container.removeEventListener('scroll', this.onScrollDebounced, false);
-      this.onScrollDebounced.cancel();
+      if (this.onScrollDebounced.cancel) {
+        this.onScrollDebounced.cancel();
+      }
     }
   },
 
