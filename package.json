@@ -1,6 +1,6 @@
 {
   "name": "react-element-resize",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Element resize sensor with optional debounce",
   "main": "lib/index.js",
   "config": {
