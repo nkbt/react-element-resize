@@ -1,3 +1,3 @@
-# react-element-resize 
+# react-element-resize [![MOVED](https://img.shields.io/badge/status-MOVED-blue.svg?style=flat-square)](https://github.com/nkbt/react-works/tree/master/packages/element-resize)
 
 All code moved to https://github.com/nkbt/react-works/tree/master/packages/element-resize
