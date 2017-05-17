@@ -410,7 +410,7 @@ var ReactElementResize = exports.ReactElementResize = function (_React$Component
       return _react2.default.createElement(
         'div',
         _extends({ ref: this.onContainerRef, style: _extends({ position: 'relative' }, style) }, props),
-        onResize ? _react2.default.createElement('iframe', { ref: this.onSensorRef, style: iframeStyle }) : null,
+        onResize ? _react2.default.createElement('iframe', { ref: this.onSensorRef, title: 'Element resize sensor', style: iframeStyle }) : null,
         shouldRender ? render({ width: width, height: height, offsetLeft: offsetLeft, offsetTop: offsetTop, scrollLeft: scrollLeft, scrollTop: scrollTop }) : null
       );
     }
