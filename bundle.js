@@ -33,9 +33,6 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -63,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,25 +71,46 @@ module.exports = React;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__App__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_css__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__app_css__);
+/* global document */
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.App = undefined;
 
+
+
+
+var appRoot = document.createElement('div');
+
+appRoot.id = 'app';
+document.body.appendChild(appRoot);
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__App__["a" /* App */], null), appRoot);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = ReactDOM;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return App; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_Component__ = __webpack_require__(4);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Component = __webpack_require__(5);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -100,7 +118,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var App = exports.App = function (_React$Component) {
+
+
+
+var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
   function App() {
@@ -124,59 +145,59 @@ var App = exports.App = function (_React$Component) {
     value: function render() {
       var log = this.state.log;
 
-      return _react2.default.createElement(
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'app' },
-        _react2.default.createElement(
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h1',
           null,
           'react-element-resize'
         ),
-        _react2.default.createElement(
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h2',
           null,
           'Debounce scrolling and resize by 200ms'
         ),
-        _react2.default.createElement(
-          _Component.ReactElementResize,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_1__src_Component__["a" /* ReactElementResize */],
           {
             className: 'wrapper',
             debounceTimeout: 200,
             onResize: this.onLog,
             onScroll: this.onLog },
           function (data) {
-            return _react2.default.createElement(
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'pre',
               { className: 'pre' },
               JSON.stringify(data, null, 2)
             );
           }
         ),
-        _react2.default.createElement(
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h2',
           null,
           'Debounce scrolling by 200ms but no more then 1000ms'
         ),
-        _react2.default.createElement(
-          _Component.ReactElementResize,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_1__src_Component__["a" /* ReactElementResize */],
           {
             className: 'wrapper',
             debounceTimeout: 200,
             debounceOptions: { maxWait: 1000 },
             onScroll: this.onLog },
           function (data) {
-            return _react2.default.createElement(
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'pre',
               { className: 'pre' },
               JSON.stringify(data, null, 2)
             );
           }
         ),
-        _react2.default.createElement(
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'log' },
           log.map(function (line, i) {
-            return _react2.default.createElement(
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'pre',
               { className: 'line', key: i + '/' + line },
               line
@@ -188,74 +209,21 @@ var App = exports.App = function (_React$Component) {
   }]);
 
   return App;
-}(_react2.default.Component);
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = ReactDOM;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _App = __webpack_require__(1);
-
-__webpack_require__(2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/* global document */
-
-var appRoot = document.createElement('div');
-
-appRoot.id = 'app';
-document.body.appendChild(appRoot);
-_reactDom2.default.render(_react2.default.createElement(_App.App, null), appRoot);
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ReactElementResize = undefined;
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReactElementResize; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_debounce__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_debounce__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _lodash = __webpack_require__(7);
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
@@ -263,7 +231,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global window */
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/* global window */
+
+
+
+
 
 var iframeStyle = {
   display: 'block',
@@ -279,7 +253,7 @@ var iframeStyle = {
   zIndex: -1
 };
 
-var ReactElementResize = exports.ReactElementResize = function (_React$Component) {
+var ReactElementResize = function (_React$Component) {
   _inherits(ReactElementResize, _React$Component);
 
   function ReactElementResize() {
@@ -336,11 +310,11 @@ var ReactElementResize = exports.ReactElementResize = function (_React$Component
 
 
       if (onResize) {
-        this.onResizeDebounced = debounceTimeout > -1 ? (0, _lodash2.default)(this.onResize, debounceTimeout, debounceOptions) : this.onResize;
+        this.onResizeDebounced = debounceTimeout > -1 ? __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default()(this.onResize, debounceTimeout, debounceOptions) : this.onResize;
       }
 
       if (onScroll) {
-        this.onScrollDebounced = debounceTimeout > -1 ? (0, _lodash2.default)(this.onScroll, debounceTimeout, debounceOptions) : this.onScroll;
+        this.onScrollDebounced = debounceTimeout > -1 ? __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default()(this.onScroll, debounceTimeout, debounceOptions) : this.onScroll;
       }
     }
   }, {
@@ -407,18 +381,17 @@ var ReactElementResize = exports.ReactElementResize = function (_React$Component
 
       var shouldRender = onResize && width > -1 && height > -1 || onScroll && offsetLeft > -1 && offsetTop > -1 && scrollLeft > -1 && scrollTop > -1;
 
-      return _react2.default.createElement(
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         _extends({ ref: this.onContainerRef, style: _extends({ position: 'relative' }, style) }, props),
-        onResize ? _react2.default.createElement('iframe', { ref: this.onSensorRef, title: 'Element resize sensor', style: iframeStyle }) : null,
+        onResize ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('iframe', { ref: this.onSensorRef, title: 'Element resize sensor', style: iframeStyle }) : null,
         shouldRender ? render({ width: width, height: height, offsetLeft: offsetLeft, offsetTop: offsetTop, scrollLeft: scrollLeft, scrollTop: scrollTop }) : null
       );
     }
   }]);
 
   return ReactElementResize;
-}(_react2.default.Component);
-
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 ReactElementResize.defaultProps = {
   onResize: undefined,
   onScroll: undefined,
@@ -431,34 +404,7 @@ ReactElementResize.defaultProps = {
 };
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -840,6 +786,39 @@ function toNumber(value) {
 module.exports = debounce;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
